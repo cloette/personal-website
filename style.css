@@ -1,0 +1,102 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  color: #f1f1f1;
+  background-color: #121212;
+}
+
+/* Layout */
+.container {
+  width: 90%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  padding: 40px 0;
+  text-align: center;
+  border-bottom: 2px solid #333;
+}
+
+header h1 {
+  margin-bottom: 10px;
+  font-size: 2.5em;
+}
+
+main section {
+  margin-bottom: 40px;
+}
+
+h2 {
+  color: #53ff6a;
+  border-bottom: 2px solid #333;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+.skills-list,
+.project-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.skills-list li,
+.project-list li {
+  background-color: #1e1e1e;
+  color: #ddd;
+  display: inline-block;
+  padding: 8px 12px;
+  margin: 5px;
+  border-radius: 5px;
+  border: 1px solid #333;
+}
+
+.job {
+  margin-bottom: 20px;
+}
+
+.job .date {
+  font-style: italic;
+  color: #aaa;
+}
+
+a {
+  color: #4db8ff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+footer {
+  background-color: #1e1e1e;
+  color: #ccc;
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 40px;
+  border-top: 2px solid #333;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 1.8em;
+  }
+
+  .skills-list li,
+  .project-list li {
+    display: block;
+    margin: 8px 0;
+  }
+}
