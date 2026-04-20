@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cloette Zager - Developer Resume</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+        label {
+            display: block;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        p {
+            text-align: center;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 6px;
+            margin-top: 4px;
+
+        }
+
+        button {
+            padding: 10px;
+            background-color: orange;
+            display: block;
+            margin: 15px auto;
+        }
+
+        .output div {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            margin: 1px;
+        }
+
+        .donotfillscreen {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        .two-columns {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .blue strong {
+            color: aqua;
+        }
+
+        .blue {
+            border: 1px solid aqua;
+        }
+
+        .orange strong {
+            color: orange;
+        }
+
+        .orange {
+            border: 1px solid orange;
+        }
+    </style>
+</head>
+
+
+
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Life in Your Years</h1>
+            <p style="color:gray"><i>Inspired by Gandalf.</i></p>
+        </div>
+    </header>
+
+    <div class="donotfillscreen">
+        <div class="output two-columns" id="output">
+            <div class="blue"><strong>Good Health:</strong>
+                ____ days<br> ____ weekends<br> ____ years</div>
+            <div class="orange"><strong>Declining Health:</strong>
+                ____ days<br> ____ weekends<br> ____ years</div>
+        </div>
+        <p style="color:gray"><br>Estimates are rough and based on population averages in the United States. <br></p>
+
+        <label>Current Age:
+            <input type="number" id="age" min="0" max="120">
+        </label>
+
+        <label>Gender (optional):
+            <select id="gender">
+                <option value="">Prefer not to say</option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+            </select>
+        </label>
+
+        <label>Race (optional):
+            <select id="race">
+                <option value="">Prefer not to say</option>
+                <option value="white">White</option>
+                <option value="black">Black</option>
+                <option value="asian">Asian</option>
+                <option value="hispanic">Hispanic</option>
+                <option value="other">Other</option>
+            </select>
+        </label>
+
+        <label>Age of Health Decline:
+            <input type="number" id="declineAge" min="0" max="120">
+        </label>
+
+        <button onclick="calculate()">Calculate</button>
+
+        <div style="margin-top:80px">
+            <h2>Critical thinking questions:</h2>
+            <p>Are you happy with how you spent your time in the past?</p>
+            <p>Are you happy with how you spend your time in the present?</p>
+            <p>Are there things you want to do before you die?</p>
+            <p>What do you want your later years to look like?</p>
+            <br><br>
+            <br><br>
+            <p style="color:gray">Nobody truly knows what the future holds. We place our bets and make moves anyway. It beats watching the
+                show.</p>
+        </div>
+    </div>
+
+
+
+    <script>
+        function suggestDeclineAge(age, gender) {
+            // Basic heuristic (you can refine this)
+            let base = 75;
+
+            if (gender === "female") base += 2;
+            if (gender === "male") base -= 2;
+
+            return Math.max(age + 5, base); // ensure it's ahead of current age
+        }
+
+        document.getElementById("age").addEventListener("blur", () => {
+            const age = parseInt(document.getElementById("age").value);
+            const gender = document.getElementById("gender").value;
+            const declineField = document.getElementById("declineAge");
+
+            if (!declineField.value && age) {
+                declineField.value = suggestDeclineAge(age, gender);
+            }
+        });
+
+        function calculate() {
+            const age = parseInt(document.getElementById("age").value);
+            const declineAge = parseInt(document.getElementById("declineAge").value);
+
+            if (!age || !declineAge || declineAge <= age) {
+                document.getElementById("output").innerText =
+                    "Please enter valid ages (decline age must be greater than current age).";
+                return;
+            }
+
+            const goodYears = declineAge - age;
+
+            // Simple assumption: total lifespan ~85 (you can refine)
+            const totalLife = 85;
+            const decliningYears = Math.max(0, totalLife - declineAge);
+
+            function convert(years) {
+                return {
+                    days: Math.round(years * 365),
+                    weekends: Math.round(years * 52)
+                };
+            }
+
+            const good = convert(goodYears);
+            const declining = convert(decliningYears);
+
+            document.getElementById("output").innerHTML = `
+    <div class="blue"><strong>Good Health:</strong><br>
+    (~${good.days} days, <br>${good.weekends} weekends), <br>${goodYears} years</div>
+
+    <div class="orange"><strong>Declining Health:</strong><br>
+    (~${declining.days} days, <br>${declining.weekends} weekends), <br>${decliningYears} years</div>
+  `;
+        }
+    </script>
+
+
+</body>
+
+</html>
